@@ -97,42 +97,45 @@ function ativarProduto(produto) {
         listaProdutos.removeChild(produto);
     });
 
-    // Edita nome e preço usando prompt
+    // Edita nome e preço no próprio card
     const botaoEditar = produto.querySelector(".botao-editar");
+    const titulo = produto.querySelector("h3");
+    const valor = produto.querySelector(".preco");
+    const imagem = produto.querySelector("img");
+    const editarNome = produto.querySelector(".editar-nome");
+    const editarPreco = produto.querySelector(".editar-preco");
+    const erroEdicao = produto.querySelector(".erro");
 
     botaoEditar.addEventListener("click", () => {
-        const titulo = produto.querySelector("h3");
-        const valor = produto.querySelector(".preco");
-        const imagem = produto.querySelector("img");
-
-        const novoNome = prompt("Informe o novo nome:", titulo.textContent);
-        if (novoNome === null) {
+        // Primeiro clique: mostra os campos com os valores atuais
+        if (!produto.classList.contains("editando")) {
+            editarNome.value = titulo.textContent;
+            editarPreco.value = valor.textContent;
+            produto.classList.add("editando");
+            botaoEditar.textContent = "Salvar";
             return;
         }
 
-        const novoPreco = prompt("Informe o novo preço:", valor.textContent);
-        if (novoPreco === null) {
+        // Segundo clique: valida e salva
+        const nome = editarNome.value.trim();
+        const preco = editarPreco.value;
+
+        const temErroNome = mostrarErro(editarNome, erroEdicao, validaNome(nome));
+        if (temErroNome) {
             return;
         }
 
-        const nome = novoNome.trim();
-        const preco = novoPreco.trim().replace(",", ".");
-
-        const erroNome = validaNome(nome);
-        if (erroNome) {
-            alert(erroNome);
-            return;
-        }
-
-        const erroPreco = validaPreco(preco);
-        if (erroPreco) {
-            alert(erroPreco);
+        const temErroPreco = mostrarErro(editarPreco, erroEdicao, validaPreco(preco));
+        if (temErroPreco) {
             return;
         }
 
         titulo.textContent = nome;
         valor.textContent = Number(preco).toFixed(2);
         imagem.alt = nome;
+
+        produto.classList.remove("editando");
+        botaoEditar.textContent = "Editar";
     });
 }
 
@@ -192,6 +195,9 @@ function criarProduto(nome, foto, preco) {
     const titulo = document.createElement("h3");
     const valor = document.createElement("p");
     const valorPreco = document.createElement("span");
+    const editarNome = document.createElement("input");
+    const editarPreco = document.createElement("input");
+    const erroEdicao = document.createElement("span");
     const botao = document.createElement("button");
     const botaoEditar = document.createElement("button");
     const botaoRemover = document.createElement("button");
@@ -208,6 +214,18 @@ function criarProduto(nome, foto, preco) {
     valorPreco.textContent = preco.toFixed(2);
     valorPreco.classList.add("preco");
 
+    editarNome.type = "text";
+    editarNome.placeholder = "Nome";
+    editarNome.classList.add("editar-nome");
+
+    editarPreco.type = "number";
+    editarPreco.step = "0.01";
+    editarPreco.min = "0";
+    editarPreco.placeholder = "Preço";
+    editarPreco.classList.add("editar-preco");
+
+    erroEdicao.classList.add("erro");
+
     botao.textContent = "Adicionar";
     botao.classList.add("botao-adicionar");
 
@@ -222,6 +240,9 @@ function criarProduto(nome, foto, preco) {
     artigo.appendChild(titulo);
     valor.appendChild(valorPreco);
     artigo.appendChild(valor);
+    artigo.appendChild(editarNome);
+    artigo.appendChild(editarPreco);
+    artigo.appendChild(erroEdicao);
     artigo.appendChild(botao);
     artigo.appendChild(botaoEditar);
     artigo.appendChild(botaoRemover);
