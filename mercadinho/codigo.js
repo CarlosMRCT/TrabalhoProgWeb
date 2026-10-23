@@ -26,6 +26,7 @@ elementosClicaveis.forEach((el) => {
 // ===== Carrinho =====
 const listaCarrinho = document.getElementById("lista-carrinho");
 const textoTotal = document.getElementById("total");
+const listaProdutos = document.getElementById("lista-produtos");
 
 function atualizarTotal() {
     const itens = listaCarrinho.getElementsByTagName("li");
@@ -129,6 +130,7 @@ function ativarProduto(produto) {
         produto.dataset.nome = nome;
         produto.dataset.preco = preco;
         titulo.textContent = nome;
+        produto.querySelector("img").alt = nome;
         valor.textContent = `R$ ${Number(preco).toFixed(2)}`;
 
         produto.classList.remove("editando");
@@ -149,7 +151,6 @@ const inputPreco = document.getElementById("preco");
 const erroNome = document.getElementById("erro-nome");
 const erroFoto = document.getElementById("erro-foto");
 const erroPreco = document.getElementById("erro-preco");
-const listaProdutos = document.getElementById("lista-produtos");
 
 function validaNome(nome) {
     if (nome.length < 3) {
@@ -212,11 +213,15 @@ function criarProduto(nome, foto, preco) {
     valor.textContent = `R$ ${preco.toFixed(2)}`;
 
     editarNome.type = "text";
+    editarNome.placeholder = "Nome";
+    editarNome.setAttribute("aria-label", "Nome do produto");
     editarNome.classList.add("editar-nome");
 
     editarPreco.type = "number";
     editarPreco.step = "0.01";
     editarPreco.min = "0";
+    editarPreco.placeholder = "Preço";
+    editarPreco.setAttribute("aria-label", "Preço do produto");
     editarPreco.classList.add("editar-preco");
 
     erroEdicao.classList.add("erro");
