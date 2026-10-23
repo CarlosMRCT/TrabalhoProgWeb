@@ -37,13 +37,13 @@ function atualizarTotal() {
 }
 
 function adicionarAoCarrinho(nome, preco) {
-    // 1. Fabricar
+
     const novoLi = document.createElement("li");
     const texto = document.createElement("span");
     const valorItem = document.createElement("span");
     const botaoRemover = document.createElement("button");
 
-    // 2. Preencher
+
     texto.textContent = `${nome} - R$ `;
     valorItem.textContent = preco.toFixed(2);
     valorItem.classList.add("preco-item");
@@ -55,7 +55,7 @@ function adicionarAoCarrinho(nome, preco) {
         atualizarTotal();
     });
 
-    // 3. Anexar
+
     novoLi.appendChild(texto);
     novoLi.appendChild(valorItem);
     novoLi.appendChild(botaoRemover);
@@ -100,7 +100,7 @@ function ativarProduto(produto) {
     const erroEdicao = produto.querySelector(".erro");
 
     botaoEditar.addEventListener("click", () => {
-        // primeiro clique abre a edicao
+
         if (!produto.classList.contains("editando")) {
             editarNome.value = titulo.textContent;
             editarPreco.value = valor.textContent;
@@ -109,7 +109,6 @@ function ativarProduto(produto) {
             return;
         }
 
-        // segundo clique salva
         const nome = editarNome.value.trim();
         const preco = editarPreco.value;
 
@@ -176,7 +175,6 @@ function validaPreco(preco) {
 }
 
 function criarProduto(nome, foto, preco) {
-    // 1. Fabricar
     const artigo = document.createElement("article");
     const imagem = document.createElement("img");
     const titulo = document.createElement("h3");
@@ -189,7 +187,6 @@ function criarProduto(nome, foto, preco) {
     const botaoEditar = document.createElement("button");
     const botaoRemover = document.createElement("button");
 
-    // 2. Preencher
     artigo.classList.add("produto");
 
     imagem.src = foto;
@@ -222,7 +219,6 @@ function criarProduto(nome, foto, preco) {
     botaoRemover.textContent = "Remover";
     botaoRemover.classList.add("botao-remover");
 
-    // 3. Anexar
     artigo.appendChild(imagem);
     artigo.appendChild(titulo);
     valor.appendChild(valorPreco);
