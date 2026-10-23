@@ -73,6 +73,50 @@ function ativarProduto(produto) {
         const preco = Number(produto.dataset.preco);
         adicionarAoCarrinho(nome, preco);
     });
+
+    // Remove o card do produto da lista
+    const botaoRemover = produto.querySelector(".botao-remover");
+
+    botaoRemover.addEventListener("click", () => {
+        listaProdutos.removeChild(produto);
+    });
+
+    // Edita nome, preço e foto do produto
+    const botaoEditar = produto.querySelector(".botao-editar");
+
+    botaoEditar.addEventListener("click", () => {
+        const imagem = produto.querySelector("img");
+        const titulo = produto.querySelector("h3");
+        const valor = produto.querySelector("p");
+
+        const novoNome = prompt("Nome do produto:", produto.dataset.nome);
+        if (novoNome === null) {
+            return;
+        }
+
+        const novoPreco = prompt("Valor (R$):", produto.dataset.preco);
+        if (novoPreco === null) {
+            return;
+        }
+
+        const novaFoto = prompt("Foto (caminho ou URL):", imagem.getAttribute("src"));
+        if (novaFoto === null) {
+            return;
+        }
+
+        const erro = validaNome(novoNome.trim()) || validaPreco(novoPreco) || validaFoto(novaFoto.trim());
+        if (erro) {
+            alert(erro);
+            return;
+        }
+
+        produto.dataset.nome = novoNome.trim();
+        produto.dataset.preco = Number(novoPreco);
+        titulo.textContent = novoNome.trim();
+        valor.textContent = `R$ ${Number(novoPreco).toFixed(2)}`;
+        imagem.src = novaFoto.trim();
+        imagem.alt = novoNome.trim();
+    });
 }
 
 const produtos = document.querySelectorAll(".produto");
@@ -132,6 +176,8 @@ function criarProduto(nome, foto, preco) {
     const titulo = document.createElement("h3");
     const valor = document.createElement("p");
     const botao = document.createElement("button");
+    const botaoEditar = document.createElement("button");
+    const botaoRemover = document.createElement("button");
 
     // 2. Preencher
     artigo.classList.add("produto");
@@ -149,11 +195,21 @@ function criarProduto(nome, foto, preco) {
     botao.type = "button";
     botao.classList.add("botao-adicionar");
 
+    botaoEditar.textContent = "Editar";
+    botaoEditar.type = "button";
+    botaoEditar.classList.add("botao-editar");
+
+    botaoRemover.textContent = "Remover";
+    botaoRemover.type = "button";
+    botaoRemover.classList.add("botao-remover");
+
     // 3. Anexar
     artigo.appendChild(imagem);
     artigo.appendChild(titulo);
     artigo.appendChild(valor);
     artigo.appendChild(botao);
+    artigo.appendChild(botaoEditar);
+    artigo.appendChild(botaoRemover);
     listaProdutos.appendChild(artigo);
 
     // Elementos criados depois precisam receber os eventos também

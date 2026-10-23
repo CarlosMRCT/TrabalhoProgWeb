@@ -97,6 +97,11 @@ aside {
     font-weight: bold;
 }
 
+.produto button {
+    width: 100%;
+    margin-top: 5px;
+}
+
 .clicavel {
     cursor: pointer;
     transition: transform 0.3s;
@@ -179,6 +184,12 @@ button {
 
 .botao-remover {
     background-color: #a11d1d;
+    height: 28px;
+    padding: 0 10px;
+}
+
+.botao-editar {
+    background-color: #b07a00;
     height: 28px;
     padding: 0 10px;
 }
