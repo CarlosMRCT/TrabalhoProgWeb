@@ -1,0 +1,219 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px 40px;
+    background-color: whitesmoke;
+    color: #000000;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ===== Cabeçalho ===== */
+header {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#botao-tema {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #272727;
+    font-size: 0.8rem;
+}
+
+/* ===== Área principal ===== */
+main {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+section,
+aside {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#secao-produtos {
+    flex: 2;
+    min-width: 300px;
+}
+
+#secao-carrinho {
+    flex: 1;
+    min-width: 250px;
+}
+
+#secao-cadastro {
+    width: 100%;
+}
+
+/* ===== Produtos ===== */
+#lista-produtos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.produto {
+    width: 170px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.produto img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.produto h3 {
+    font-size: 1rem;
+    margin: 10px 0 5px;
+}
+
+.produto p {
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+
+.clicavel {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.clicavel.zoom {
+    transform: scale(1.15);
+}
+
+/* ===== Carrinho ===== */
+#lista-carrinho {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#lista-carrinho li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-left: 4px solid #092a50;
+    background-color: whitesmoke;
+    border-radius: 6px;
+}
+
+#total {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* ===== Formulário ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    height: 35px;
+    width: 100%;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 2px solid #cccccc;
+}
+
+input.invalido {
+    border-color: #ff0000;
+}
+
+.erro {
+    color: #ff0000;
+    font-size: 0.8rem;
+}
+
+/* ===== Botões ===== */
+button {
+    color: white;
+    background-color: #092a50;
+    border-radius: 10px;
+    border: 1px solid;
+    height: 35px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.botao-remover {
+    background-color: #a11d1d;
+    height: 28px;
+    padding: 0 10px;
+}
+
+/* ===== Rodapé ===== */
+footer {
+    font-size: 0.8rem;
+    color: grey;
+}
+
+/* ===== Modo escuro ===== */
+body.modo-escuro {
+    background-color: #1A1A1A;
+    color: white;
+}
+
+body.modo-escuro section,
+body.modo-escuro aside {
+    background-color: #1E1E1E;
+}
+
+body.modo-escuro .produto {
+    border-color: #333333;
+}
+
+body.modo-escuro #lista-carrinho li {
+    background-color: #1A1A1A;
+}
+
+body.modo-escuro button {
+    border: 1px solid #1A1A1A;
+}
+
+body.modo-escuro input {
+    background-color: #1A1A1A;
+    border: 1px solid grey;
+    color: white;
+}

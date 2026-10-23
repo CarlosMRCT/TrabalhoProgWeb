@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mercadinho</title>
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="codigo.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>Mercadinho</h1>
+        <button id="botao-tema" type="button">Modo Escuro</button>
+    </header>
+
+    <main>
+        <section id="secao-produtos">
+            <h2>Produtos</h2>
+
+            <div id="lista-produtos">
+                <article class="produto" data-nome="Arroz 5kg" data-preco="27.90">
+                    <img src="img/arroz.svg" alt="Arroz 5kg" class="clicavel">
+                    <h3>Arroz 5kg</h3>
+                    <p>R$ 27.90</p>
+                    <button type="button" class="botao-adicionar">Adicionar</button>
+                </article>
+
+                <article class="produto" data-nome="Feijão 1kg" data-preco="8.50">
+                    <img src="img/feijao.svg" alt="Feijão 1kg" class="clicavel">
+                    <h3>Feijão 1kg</h3>
+                    <p>R$ 8.50</p>
+                    <button type="button" class="botao-adicionar">Adicionar</button>
+                </article>
+
+                <article class="produto" data-nome="Leite 1L" data-preco="5.49">
+                    <img src="img/leite.svg" alt="Leite 1L" class="clicavel">
+                    <h3>Leite 1L</h3>
+                    <p>R$ 5.49</p>
+                    <button type="button" class="botao-adicionar">Adicionar</button>
+                </article>
+
+                <article class="produto" data-nome="Café 500g" data-preco="19.90">
+                    <img src="img/cafe.svg" alt="Café 500g" class="clicavel">
+                    <h3>Café 500g</h3>
+                    <p>R$ 19.90</p>
+                    <button type="button" class="botao-adicionar">Adicionar</button>
+                </article>
+
+                <article class="produto" data-nome="Pão de forma" data-preco="9.99">
+                    <img src="img/pao.svg" alt="Pão de forma" class="clicavel">
+                    <h3>Pão de forma</h3>
+                    <p>R$ 9.99</p>
+                    <button type="button" class="botao-adicionar">Adicionar</button>
+                </article>
+            </div>
+        </section>
+
+        <aside id="secao-carrinho">
+            <h2>Carrinho</h2>
+            <ul id="lista-carrinho">
+            </ul>
+            <p id="total">Total: R$ 0.00</p>
+        </aside>
+
+        <section id="secao-cadastro">
+            <h2>Cadastrar produto</h2>
+
+            <form id="formulario">
+                <div class="campo">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome"
+                        placeholder="Digite o nome do produto" autocomplete="off">
+                    <span id="erro-nome" class="erro"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="foto">Foto (caminho ou URL)</label>
+                    <input type="text" id="foto" name="foto"
+                        placeholder="Ex.: img/arroz.svg" autocomplete="off">
+                    <span id="erro-foto" class="erro"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="preco">Valor (R$)</label>
+                    <input type="number" id="preco" name="preco"
+                        placeholder="Ex.: 10.50" step="0.01" min="0">
+                    <span id="erro-preco" class="erro"></span>
+                </div>
+
+                <button type="submit">Salvar</button>
+                <button type="reset">Limpar</button>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
