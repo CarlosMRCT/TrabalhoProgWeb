@@ -92,7 +92,7 @@ aside {
 .produto img {
     width: 150px;
     height: 100px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
 }
 
@@ -109,23 +109,6 @@ aside {
 .produto button {
     width: 100%;
     margin-top: 5px;
-}
-
-/* Campos de edição ficam escondidos até clicar em "Editar" */
-.editar-nome,
-.editar-preco {
-    display: none;
-    margin-bottom: 5px;
-}
-
-.produto.editando .editar-nome,
-.produto.editando .editar-preco {
-    display: block;
-}
-
-.produto.editando h3,
-.produto.editando p {
-    display: none;
 }
 
 .clicavel {

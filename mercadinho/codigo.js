@@ -26,13 +26,14 @@ elementosClicaveis.forEach((el) => {
 // ===== Carrinho =====
 const listaCarrinho = document.getElementById("lista-carrinho");
 const textoTotal = document.getElementById("total");
+const listaProdutos = document.getElementById("lista-produtos");
 
 function atualizarTotal() {
     const itens = listaCarrinho.getElementsByTagName("li");
     let total = 0;
 
     for (let i = 0; i < itens.length; i++) {
-        total += Number(itens[i].dataset.preco);
+        total += Number(itens[i].querySelector(".preco-item").textContent);
     }
 
     textoTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
@@ -42,13 +43,14 @@ function adicionarAoCarrinho(nome, preco) {
     // 1. Fabricar
     const novoLi = document.createElement("li");
     const texto = document.createElement("span");
+    const valorItem = document.createElement("span");
     const botaoRemover = document.createElement("button");
 
     // 2. Preencher
-    novoLi.dataset.preco = preco;
-    texto.textContent = `${nome} - R$ ${preco.toFixed(2)}`;
+    texto.textContent = `${nome} - R$ `;
+    valorItem.textContent = preco.toFixed(2);
+    valorItem.classList.add("preco-item");
     botaoRemover.textContent = "Remover";
-    botaoRemover.type = "button";
     botaoRemover.classList.add("botao-remover");
 
     botaoRemover.addEventListener("click", () => {
@@ -58,6 +60,7 @@ function adicionarAoCarrinho(nome, preco) {
 
     // 3. Anexar
     novoLi.appendChild(texto);
+    novoLi.appendChild(valorItem);
     novoLi.appendChild(botaoRemover);
     listaCarrinho.appendChild(novoLi);
 
@@ -82,8 +85,8 @@ function ativarProduto(produto) {
     const botaoAdicionar = produto.querySelector(".botao-adicionar");
 
     botaoAdicionar.addEventListener("click", () => {
-        const nome = produto.dataset.nome;
-        const preco = Number(produto.dataset.preco);
+        const nome = produto.querySelector("h3").textContent;
+        const preco = Number(produto.querySelector(".preco").textContent);
         adicionarAoCarrinho(nome, preco);
     });
 
@@ -94,45 +97,42 @@ function ativarProduto(produto) {
         listaProdutos.removeChild(produto);
     });
 
-    // Edita nome e preço no próprio card
+    // Edita nome e preço usando prompt
     const botaoEditar = produto.querySelector(".botao-editar");
-    const titulo = produto.querySelector("h3");
-    const valor = produto.querySelector("p");
-    const editarNome = produto.querySelector(".editar-nome");
-    const editarPreco = produto.querySelector(".editar-preco");
-    const erroEdicao = produto.querySelector(".erro");
 
     botaoEditar.addEventListener("click", () => {
-        // Primeiro clique: mostra os campos com os valores atuais
-        if (!produto.classList.contains("editando")) {
-            editarNome.value = produto.dataset.nome;
-            editarPreco.value = produto.dataset.preco;
-            produto.classList.add("editando");
-            botaoEditar.textContent = "Salvar";
+        const titulo = produto.querySelector("h3");
+        const valor = produto.querySelector(".preco");
+        const imagem = produto.querySelector("img");
+
+        const novoNome = prompt("Informe o novo nome:", titulo.textContent);
+        if (novoNome === null) {
             return;
         }
 
-        // Segundo clique: valida e salva
-        const nome = editarNome.value.trim();
-        const preco = editarPreco.value;
-
-        const temErroNome = mostrarErro(editarNome, erroEdicao, validaNome(nome));
-        if (temErroNome) {
+        const novoPreco = prompt("Informe o novo preço:", valor.textContent);
+        if (novoPreco === null) {
             return;
         }
 
-        const temErroPreco = mostrarErro(editarPreco, erroEdicao, validaPreco(preco));
-        if (temErroPreco) {
+        const nome = novoNome.trim();
+        const preco = novoPreco.trim().replace(",", ".");
+
+        const erroNome = validaNome(nome);
+        if (erroNome) {
+            alert(erroNome);
             return;
         }
 
-        produto.dataset.nome = nome;
-        produto.dataset.preco = preco;
+        const erroPreco = validaPreco(preco);
+        if (erroPreco) {
+            alert(erroPreco);
+            return;
+        }
+
         titulo.textContent = nome;
-        valor.textContent = `R$ ${Number(preco).toFixed(2)}`;
-
-        produto.classList.remove("editando");
-        botaoEditar.textContent = "Editar";
+        valor.textContent = Number(preco).toFixed(2);
+        imagem.alt = nome;
     });
 }
 
@@ -149,7 +149,6 @@ const inputPreco = document.getElementById("preco");
 const erroNome = document.getElementById("erro-nome");
 const erroFoto = document.getElementById("erro-foto");
 const erroPreco = document.getElementById("erro-preco");
-const listaProdutos = document.getElementById("lista-produtos");
 
 function validaNome(nome) {
     if (nome.length < 3) {
@@ -168,7 +167,7 @@ function validaFoto(foto) {
 }
 
 function validaPreco(preco) {
-    if (preco === "" || Number(preco) <= 0) {
+    if (preco === "" || isNaN(Number(preco)) || Number(preco) <= 0) {
         return "Informe um valor maior que zero";
     }
 }
@@ -192,54 +191,37 @@ function criarProduto(nome, foto, preco) {
     const imagem = document.createElement("img");
     const titulo = document.createElement("h3");
     const valor = document.createElement("p");
-    const editarNome = document.createElement("input");
-    const editarPreco = document.createElement("input");
-    const erroEdicao = document.createElement("span");
+    const valorPreco = document.createElement("span");
     const botao = document.createElement("button");
     const botaoEditar = document.createElement("button");
     const botaoRemover = document.createElement("button");
 
     // 2. Preencher
     artigo.classList.add("produto");
-    artigo.dataset.nome = nome;
-    artigo.dataset.preco = preco;
 
     imagem.src = foto;
     imagem.alt = nome;
     imagem.classList.add("clicavel");
 
     titulo.textContent = nome;
-    valor.textContent = `R$ ${preco.toFixed(2)}`;
-
-    editarNome.type = "text";
-    editarNome.classList.add("editar-nome");
-
-    editarPreco.type = "number";
-    editarPreco.step = "0.01";
-    editarPreco.min = "0";
-    editarPreco.classList.add("editar-preco");
-
-    erroEdicao.classList.add("erro");
+    valor.textContent = "R$ ";
+    valorPreco.textContent = preco.toFixed(2);
+    valorPreco.classList.add("preco");
 
     botao.textContent = "Adicionar";
-    botao.type = "button";
     botao.classList.add("botao-adicionar");
 
     botaoEditar.textContent = "Editar";
-    botaoEditar.type = "button";
     botaoEditar.classList.add("botao-editar");
 
     botaoRemover.textContent = "Remover";
-    botaoRemover.type = "button";
     botaoRemover.classList.add("botao-remover");
 
     // 3. Anexar
     artigo.appendChild(imagem);
     artigo.appendChild(titulo);
+    valor.appendChild(valorPreco);
     artigo.appendChild(valor);
-    artigo.appendChild(editarNome);
-    artigo.appendChild(editarPreco);
-    artigo.appendChild(erroEdicao);
     artigo.appendChild(botao);
     artigo.appendChild(botaoEditar);
     artigo.appendChild(botaoRemover);
