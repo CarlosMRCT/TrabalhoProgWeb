@@ -107,7 +107,6 @@ aside {
     margin-top: 5px;
 }
 
-/* campos de editar escondidos */
 .editar-nome,
 .editar-preco {
     display: none;
