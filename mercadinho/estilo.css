@@ -157,6 +157,11 @@ aside {
     border-radius: 6px;
 }
 
+/* Mantém o preço junto do nome, empurrando o botão para a direita */
+.preco-item {
+    margin-right: auto;
+}
+
 #total {
     font-weight: bold;
     font-size: 1.2rem;
