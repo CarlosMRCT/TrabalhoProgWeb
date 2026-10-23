@@ -1,4 +1,3 @@
-// ===== Tema claro / escuro =====
 const botaoTema = document.getElementById("botao-tema");
 
 botaoTema.addEventListener("click", () => {
@@ -11,7 +10,6 @@ botaoTema.addEventListener("click", () => {
     }
 });
 
-// ===== Zoom ao clicar na foto =====
 function ativarZoom(el) {
     el.addEventListener("click", () => {
         el.classList.toggle("zoom");
@@ -23,7 +21,6 @@ elementosClicaveis.forEach((el) => {
     ativarZoom(el);
 });
 
-// ===== Carrinho =====
 const listaCarrinho = document.getElementById("lista-carrinho");
 const textoTotal = document.getElementById("total");
 const listaProdutos = document.getElementById("lista-produtos");
@@ -67,7 +64,6 @@ function adicionarAoCarrinho(nome, preco) {
     atualizarTotal();
 }
 
-// Remove todos os itens do carrinho
 const botaoLimpar = document.getElementById("botao-limpar");
 
 botaoLimpar.addEventListener("click", () => {
@@ -80,7 +76,6 @@ botaoLimpar.addEventListener("click", () => {
     atualizarTotal();
 });
 
-// Liga o botão "Adicionar" de um card de produto ao carrinho
 function ativarProduto(produto) {
     const botaoAdicionar = produto.querySelector(".botao-adicionar");
 
@@ -90,14 +85,12 @@ function ativarProduto(produto) {
         adicionarAoCarrinho(nome, preco);
     });
 
-    // Remove o card do produto da lista
     const botaoRemover = produto.querySelector(".botao-remover");
 
     botaoRemover.addEventListener("click", () => {
         listaProdutos.removeChild(produto);
     });
 
-    // Edita nome e preço no próprio card
     const botaoEditar = produto.querySelector(".botao-editar");
     const titulo = produto.querySelector("h3");
     const valor = produto.querySelector(".preco");
@@ -107,7 +100,7 @@ function ativarProduto(produto) {
     const erroEdicao = produto.querySelector(".erro");
 
     botaoEditar.addEventListener("click", () => {
-        // Primeiro clique: mostra os campos com os valores atuais
+        // primeiro clique abre a edicao
         if (!produto.classList.contains("editando")) {
             editarNome.value = titulo.textContent;
             editarPreco.value = valor.textContent;
@@ -116,19 +109,27 @@ function ativarProduto(produto) {
             return;
         }
 
-        // Segundo clique: valida e salva
+        // segundo clique salva
         const nome = editarNome.value.trim();
         const preco = editarPreco.value;
 
-        const temErroNome = mostrarErro(editarNome, erroEdicao, validaNome(nome));
-        if (temErroNome) {
+        const erroTextoNome = validaNome(nome);
+        if (erroTextoNome) {
+            erroEdicao.textContent = erroTextoNome;
+            editarNome.classList.add("invalido");
             return;
         }
+        editarNome.classList.remove("invalido");
+        erroEdicao.textContent = "";
 
-        const temErroPreco = mostrarErro(editarPreco, erroEdicao, validaPreco(preco));
-        if (temErroPreco) {
+        const erroTextoPreco = validaPreco(preco);
+        if (erroTextoPreco) {
+            erroEdicao.textContent = erroTextoPreco;
+            editarPreco.classList.add("invalido");
             return;
         }
+        editarPreco.classList.remove("invalido");
+        erroEdicao.textContent = "";
 
         titulo.textContent = nome;
         valor.textContent = Number(preco).toFixed(2);
@@ -144,7 +145,6 @@ produtos.forEach((produto) => {
     ativarProduto(produto);
 });
 
-// ===== Cadastro de produtos =====
 const formulario = document.getElementById("formulario");
 const inputNome = document.getElementById("nome");
 const inputFoto = document.getElementById("foto");
@@ -173,19 +173,6 @@ function validaPreco(preco) {
     if (preco === "" || isNaN(Number(preco)) || Number(preco) <= 0) {
         return "Informe um valor maior que zero";
     }
-}
-
-// Mostra ou limpa a mensagem de erro de um campo
-function mostrarErro(input, spanErro, textoErro) {
-    if (textoErro) {
-        spanErro.textContent = textoErro;
-        input.classList.add("invalido");
-        return true;
-    }
-
-    spanErro.textContent = "";
-    input.classList.remove("invalido");
-    return false;
 }
 
 function criarProduto(nome, foto, preco) {
@@ -248,7 +235,6 @@ function criarProduto(nome, foto, preco) {
     artigo.appendChild(botaoRemover);
     listaProdutos.appendChild(artigo);
 
-    // Elementos criados depois precisam receber os eventos também
     ativarZoom(imagem);
     ativarProduto(artigo);
 }
@@ -260,13 +246,32 @@ formulario.addEventListener("submit", (ev) => {
     const foto = inputFoto.value.trim();
     const preco = inputPreco.value;
 
-    const temErroNome = mostrarErro(inputNome, erroNome, validaNome(nome));
-    const temErroFoto = mostrarErro(inputFoto, erroFoto, validaFoto(foto));
-    const temErroPreco = mostrarErro(inputPreco, erroPreco, validaPreco(preco));
-
-    if (temErroNome || temErroFoto || temErroPreco) {
+    const erroTextoNome = validaNome(nome);
+    if (erroTextoNome) {
+        erroNome.textContent = erroTextoNome;
+        inputNome.classList.add("invalido");
         return;
     }
+    inputNome.classList.remove("invalido");
+    erroNome.textContent = "";
+
+    const erroTextoFoto = validaFoto(foto);
+    if (erroTextoFoto) {
+        erroFoto.textContent = erroTextoFoto;
+        inputFoto.classList.add("invalido");
+        return;
+    }
+    inputFoto.classList.remove("invalido");
+    erroFoto.textContent = "";
+
+    const erroTextoPreco = validaPreco(preco);
+    if (erroTextoPreco) {
+        erroPreco.textContent = erroTextoPreco;
+        inputPreco.classList.add("invalido");
+        return;
+    }
+    inputPreco.classList.remove("invalido");
+    erroPreco.textContent = "";
 
     criarProduto(nome, foto, Number(preco));
 

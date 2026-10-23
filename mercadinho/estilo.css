@@ -15,7 +15,6 @@ body {
     gap: 20px;
 }
 
-/* ===== Cabeçalho ===== */
 header {
     width: 100%;
     max-width: 1000px;
@@ -32,7 +31,6 @@ header {
     font-size: 0.8rem;
 }
 
-/* ===== Área principal ===== */
 main {
     width: 100%;
     max-width: 1000px;
@@ -62,7 +60,6 @@ aside {
     width: 100%;
 }
 
-/* Centraliza o título e o formulário dentro da section */
 #secao-cadastro h2 {
     text-align: center;
 }
@@ -71,7 +68,6 @@ aside {
     margin: 0 auto;
 }
 
-/* ===== Produtos ===== */
 #lista-produtos {
     display: flex;
     flex-wrap: wrap;
@@ -111,7 +107,7 @@ aside {
     margin-top: 5px;
 }
 
-/* Campos de edição ficam escondidos até clicar em "Editar" */
+/* campos de editar escondidos */
 .editar-nome,
 .editar-preco {
     display: none;
@@ -137,7 +133,6 @@ aside {
     transform: scale(1.15);
 }
 
-/* ===== Carrinho ===== */
 #lista-carrinho {
     list-style: none;
     padding: 0;
@@ -157,7 +152,6 @@ aside {
     border-radius: 6px;
 }
 
-/* Mantém o preço junto do nome, empurrando o botão para a direita */
 .preco-item {
     margin-right: auto;
 }
@@ -167,7 +161,6 @@ aside {
     font-size: 1.2rem;
 }
 
-/* ===== Formulário ===== */
 form {
     display: flex;
     flex-direction: column;
@@ -202,7 +195,6 @@ input.invalido {
     font-size: 0.8rem;
 }
 
-/* ===== Botões ===== */
 button {
     color: white;
     background-color: #092a50;
@@ -225,13 +217,11 @@ button {
     padding: 0 10px;
 }
 
-/* ===== Rodapé ===== */
 footer {
     font-size: 0.8rem;
     color: grey;
 }
 
-/* ===== Modo escuro ===== */
 body.modo-escuro {
     background-color: #1A1A1A;
     color: white;
