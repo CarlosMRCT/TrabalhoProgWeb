@@ -62,6 +62,15 @@ aside {
     width: 100%;
 }
 
+/* Centraliza o título e o formulário dentro da section */
+#secao-cadastro h2 {
+    text-align: center;
+}
+
+#secao-cadastro form {
+    margin: 0 auto;
+}
+
 /* ===== Produtos ===== */
 #lista-produtos {
     display: flex;

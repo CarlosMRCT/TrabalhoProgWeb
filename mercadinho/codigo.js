@@ -64,6 +64,19 @@ function adicionarAoCarrinho(nome, preco) {
     atualizarTotal();
 }
 
+// Remove todos os itens do carrinho
+const botaoLimpar = document.getElementById("botao-limpar");
+
+botaoLimpar.addEventListener("click", () => {
+    const itens = listaCarrinho.getElementsByTagName("li");
+
+    while (itens.length > 0) {
+        listaCarrinho.removeChild(itens[0]);
+    }
+
+    atualizarTotal();
+});
+
 // Liga o botão "Adicionar" de um card de produto ao carrinho
 function ativarProduto(produto) {
     const botaoAdicionar = produto.querySelector(".botao-adicionar");
