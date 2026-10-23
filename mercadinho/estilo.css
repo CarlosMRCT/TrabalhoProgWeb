@@ -111,23 +111,6 @@ aside {
     margin-top: 5px;
 }
 
-/* Campos de edição ficam escondidos até clicar em "Editar" */
-.editar-nome,
-.editar-preco {
-    display: none;
-    margin-bottom: 5px;
-}
-
-.produto.editando .editar-nome,
-.produto.editando .editar-preco {
-    display: block;
-}
-
-.produto.editando h3,
-.produto.editando p {
-    display: none;
-}
-
 .clicavel {
     cursor: pointer;
     transition: transform 0.3s;
